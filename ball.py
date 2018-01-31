@@ -26,12 +26,18 @@ class Ball(Turtle):
         self.goto(new_x,new_y)
         if screen_width<=right_side_ball:
             self.dx=-self.dx
-        elif screen_width<=left_side_ball:
+            self.clear()
+        elif -screen_width>=left_side_ball:
             self.dx=-self.dx
+            self.clear()
         elif screen_height<=up_side_ball:
             self.dy=-self.dy
-        elif screen_height<=down_side_ball:
+            self.clear()
+        elif -screen_height>=down_side_ball:
             self.dy=-self.dy
-            
+            self.clear()
 
 
+##b = Ball(0,0,2,0,10,"red")
+##for i in range(1000):
+##    b.move(200,200)
