@@ -14,7 +14,7 @@ sleep = 0.0077
 screen_width=turtle.getcanvas().winfo_width()/2
 screen_height=turtle.getcanvas().winfo_height()/2
 
-MY_BALL=Ball(0,0,0,0,50,"green")
+MY_BALL=Ball(0,0,0,0,30,"green")
 
 number_of_balls = 5
 min_ball_r=10
@@ -57,7 +57,7 @@ def check_all_balls_collision():
         for ball_b in BALLS:
             if collide(ball_a,ball_b) == True:
                 if ball_a.r*ball_a.r*3.1415926535 > ball_b.r*ball_b.r*3.1415926535:
-                    ball_a.r+=1
+                    ball_a.r+=(ball_b.r/5)
                     ball_a.shapesize(ball_a.r/10)
                     x = random.randint(-screen_width+max_ball_r,screen_width-max_ball_r)
                     y = random.randint(-screen_height+max_ball_r,screen_height-max_ball_r)
@@ -69,7 +69,7 @@ def check_all_balls_collision():
                     ball_b.shapesize(ball_b.r/10)
                     ball_b.color(random.random(),random.random(),random.random())
                 elif ball_a.r*ball_a.r*3.1415926535 < ball_b.r*ball_b.r*3.1415926535:
-                    ball_b.r+=1
+                    ball_b.r+=(ball_a.r/5)
                     ball_b.shapesize(ball_b.r/10)
                     x = random.randint(-screen_width+max_ball_r,screen_width-max_ball_r)
                     y = random.randint(-screen_height+max_ball_r,screen_height-max_ball_r)
@@ -82,12 +82,14 @@ def check_all_balls_collision():
                     ball_a.color(random.random(),random.random(),random.random())
 def check_myball_collision():
     for ball_c in BALLS:
+        if ball_c.r>MY_BALL.r:
+            ball_c.color("black")
         if collide(ball_c,MY_BALL) == True:
             if ball_c.r>MY_BALL.r:
                 print("TOU LOST, LOOSERRRR")
                 return False
             else:
-                MY_BALL.r+=3
+                MY_BALL.r+=(ball_c.r/3)
                 global eaten_balls
                 eaten_balls+=1
                 MY_BALL.shapesize(MY_BALL.r/10)
